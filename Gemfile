@@ -36,6 +36,7 @@ gem 'mini_magick', '~> 4.8'
 gem 'stripe', '~> 3.11'
 gem 'trix', '~> 0.11.1'
 gem "figaro"
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2' 
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
