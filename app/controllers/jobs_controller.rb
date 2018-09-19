@@ -26,7 +26,32 @@ class JobsController < ApplicationController
   # POST /jobs.json
   def create
     @job = current_user.jobs.build(job_params)
+    @job = current_user.jobs.build(job_params)
 
+    
+    token = params[:stripeToken]
+    job_type = params[:job_type]
+    job_title = params[:title]
+    card_brand = params[:user][:card_brand]
+    card_exp_month = params[:user][:card_exp_month]
+    card_exp_year  = params[:user][:card_exp_year]
+    card_last4 = params[:user][:card_last4]
+
+    charge = Stripe::Charge.create(
+      :amount => 30000,
+      :currency => "usd",
+      :description => job_type,
+      :statement_descriptor => job_title,
+      :source => token
+    )
+
+    current_user.stripe_id = charge.id
+    current_user.card_brand = card_brand
+    current_user.card_exp_month = card_exp_month
+    current_user.card_exp_year = card_exp_year
+    current_user.card_last4 = card_last4
+    current_user.save!
+    
     respond_to do |format|
       if @job.save
         format.html { redirect_to @job, notice: 'Job was successfully created.' }
@@ -36,6 +61,11 @@ class JobsController < ApplicationController
         format.json { render json: @job.errors, status: :unprocessable_entity }
       end
     end
+    
+    
+  rescue Stripe::CardError => e
+    flash.alert = e.message
+    render action: :new
   end
 
   # PATCH/PUT /jobs/1
