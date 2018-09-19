@@ -30,13 +30,13 @@ gem 'devise', '~> 4.4.3'
 gem 'bulma-rails', '~> 0.6.2'
 gem 'simple_form', '~> 3.5.1'
 gem 'gravatar_image_tag', github: 'mdeering/gravatar_image_tag'
-gem 'sidekiq', '~> 5.0'
-gem 'carrierwave', '~> 1.0'
-gem 'mini_magick', '~> 4.8'
-gem 'stripe', '~> 3.11'
-gem 'trix', '~> 0.11.1'
+gem 'sidekiq'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'stripe'
+gem 'trix'
 gem "figaro"
-gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2' 
+gem 'font-awesome-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

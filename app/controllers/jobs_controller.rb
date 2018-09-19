@@ -1,11 +1,14 @@
 class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
-
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.all.order("created_at desc")
+    if(params.has_key?(:job_type))
+      @jobs = Job.where(job_type: params[:job_type]).order("created_at desc")
+    else
+      @jobs = Job.all.order("created_at desc")
+    end
   end
 
   # GET /jobs/1
@@ -26,9 +29,7 @@ class JobsController < ApplicationController
   # POST /jobs.json
   def create
     @job = current_user.jobs.build(job_params)
-    @job = current_user.jobs.build(job_params)
 
-    
     token = params[:stripeToken]
     job_type = params[:job_type]
     job_title = params[:title]
@@ -50,22 +51,21 @@ class JobsController < ApplicationController
     current_user.card_exp_month = card_exp_month
     current_user.card_exp_year = card_exp_year
     current_user.card_last4 = card_last4
-    current_user.save!
-    
+    current_user.save
+
     respond_to do |format|
       if @job.save
-        format.html { redirect_to @job, notice: 'Job was successfully created.' }
+        format.html { redirect_to @job, notice: 'Your job listing was purchased successfully!' }
         format.json { render :show, status: :created, location: @job }
       else
         format.html { render :new }
         format.json { render json: @job.errors, status: :unprocessable_entity }
       end
     end
-    
-    
-  rescue Stripe::CardError => e
-    flash.alert = e.message
-    render action: :new
+
+    rescue Stripe::CardError => e
+      flash.alert = e.message
+      render action: :new
   end
 
   # PATCH/PUT /jobs/1
