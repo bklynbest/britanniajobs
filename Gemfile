@@ -24,6 +24,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+gem 'rails_12factor', group: :production  
 
 gem 'devise', '~> 4.4.3'
 gem 'bulma-rails', '~> 0.6.2'
