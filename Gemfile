@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -34,11 +33,22 @@ gem 'sidekiq'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'stripe'
+gem "pundit"
+gem 'omniauth-facebook'
+gem 'kaminari'
 gem 'trix'
 gem "figaro"
 gem 'font-awesome-rails'
 
 # Use Capistrano for deployment
+
+group :production do
+  gem "pg", "~> 0.20"
+end
+group :development, :test do
+  gem 'byebug'
+  gem 'sqlite3'
+end
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
