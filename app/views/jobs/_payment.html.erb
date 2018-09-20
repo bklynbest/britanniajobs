@@ -1,4 +1,4 @@
-
+<% if !@job.persisted? %>
   <h4 class='subtitle is-4'>Payment</h4>
   <div class='notification is-light has-text-centered'>
     <i class='fa fa-credit-card'></i>
@@ -37,3 +37,4 @@
       </table>
     </div>
   <% end %>
+<% end %>
