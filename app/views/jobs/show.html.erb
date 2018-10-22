@@ -29,12 +29,12 @@
     <h5 class="is-5 has-text-centered"><%= link_to @job.job_author, @job.url %></h5>
 
     <div class="mt2 mb4">
-    <%= link_to @job.url do %>
+    <%= link_to "http://#{@job.url}"  do %>
       <i class="fa fa-globe"></i>
     <% end %>
     </div>
 
-    <%= link_to 'Apply to this job', @job.apply_url, class:"button is-rounded is-fullwidth is-link" %>
+    <%= link_to 'Apply to this job', "http://#{@job.url}" , class:"button is-rounded is-fullwidth is-link" %>
 
     <% if current_user.try(:admin) || job_author(@job) %>
       <ul class="pv3">
